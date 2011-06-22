@@ -3,8 +3,8 @@
 /*
 Plugin Name: MyLinks2
 Plugin URI: http://www.2020media.com/mylinks
-Description: Displays image thumbnails of blogroll links on a Page or Post. Insert `[mylinks]` to a Page or Post and it will display all your blogroll links there - with live snapshots of every page. Example 1: Use `[mylinks]` in your page or post to display all your links. Example 2: Use `[mylinks=slugname]` to display just the links of the category `slugname` in your page or post. Example 3: Use `[thumb]http://www.your-homepage.com[/thumb]` to display a thumbnail of the website `http://www.your-homepage.com` in your page or post. Plugin uses www.shrinktheweb.com API. Sign up (free) and obtain an API key. Enter it in the MyLinks section under Settings.
-Version: 3.3
+Description: Displays image thumbnails of blogroll links on a Page or Post. Insert `[mylinks]` to a Page or Post and it will display all your blogroll links there - with live snapshots of every page. Example 1: Use `[mylinks]` in your page or post to display all your links. Example 2: Use `[mylinks=slugname]` to display just the links of the category `slugname` in your page or post. Example 3: Use `[thumb]http://www.your-homepage.com[/thumb]` to display a thumbnail of the website `http://www.your-homepage.com` in your page or post. This plugin uses the www.shrinktheweb.com thumbnail API. Sign up (free) and obtain an API key. Enter it in the MyLinks2 section under Settings.
+Version: 3.4
 Author: 2020Media.com based on mylinks by Sascha Ende
 Author URI: http://www.2020media.com/
 Min WP Version: 2.3
@@ -20,17 +20,18 @@ Donate link: http://www.2020media.com/wordpress
 // include options.php for the admin menu
 include_once dirname( __FILE__ ) . '/options.php';
 
+
 add_filter('the_content','getMyLinks');
 
-add_action('wp_print_styles', 'add_my_stylesheet');
+add_action('wp_print_styles', 'add_mylinks2_stylesheet');
 
 
- function add_my_stylesheet() {
-		$myStyleUrl = plugins_url('/templates/mylinks.css', __FILE__ );
-		$myStyleFile = dirname(__FILE__) .'/templates/mylinks.css';
-        if ( file_exists($myStyleFile) ) {
-            wp_register_style('myStyleSheets', $myStyleUrl);
-            wp_enqueue_style( 'myStyleSheets');
+function add_mylinks2_stylesheet() {
+		$myl2StyleUrl = plugins_url('/templates/mylinks.css', __FILE__ );
+		$myl2StyleFile = dirname(__FILE__) .'/templates/mylinks.css';
+        if ( file_exists($myl2StyleFile) ) {
+            wp_register_style('myl2StyleSheets', $myl2StyleUrl);
+            wp_enqueue_style( 'myl2StyleSheets');
         }
     }
 
@@ -40,6 +41,9 @@ add_action('wp_print_styles', 'add_my_stylesheet');
 function getMyLinks($content) {
 
 	global $wpdb, $table_prefix;
+
+		# get mylinks2 options from db
+		$options = get_option('mylinks2_plugin_options');
 
 	if(strpos($content,'[mylinks]') === false){
 
@@ -69,11 +73,18 @@ function getMyLinks($content) {
 		$sqlres = $wpdb->get_results($stmt);
 
 		# Load Template
+		if ($options['thumb_layout']=="left"){
 		$tpl = file_get_contents(dirname(__FILE__).'/templates/all_links.html');
+}
+else {
+		$tpl = file_get_contents(dirname(__FILE__).'/templates/all_links2.html');
+		};
 
 		# Get Link Part from Template
 		preg_match("/\<\!\-\-category\:start\-\-\>(.*?)\<\!\-\-category\:stop\-\-\>/sim",$tpl,$categoryparts);
 		preg_match("/\<\!\-\-link\:start\-\-\>(.*?)\<\!\-\-link\:stop\-\-\>/sim",$tpl,$tplparts);
+
+
 
 		$last_term = null;
 
@@ -94,7 +105,7 @@ function getMyLinks($content) {
 			);
 
 			$REPLACE_WITH = array(
-				'<script language="javascript" type="text/javascript" src="http://images.shrinktheweb.com/xino.php?stwembed=2&stwaccesskeyid='.get_option('my_links_data').'&stwsize=xlg&stwurl='.urlencode($link->link_url).'"></script>
+				'<script language="javascript" type="text/javascript" src="http://images.shrinktheweb.com/xino.php?stwembed=2&stwaccesskeyid='.$options['api_key'].'&stwsize='.$options['img_size'].'&stwurl='.urlencode($link->link_url).'"></script>
 				',
 				$link->link_name,
 				$link->link_description,
@@ -145,6 +156,9 @@ function getMyLinksByCategoryCallback($matches){
 
 	$sqlres = $wpdb->get_results($stmt);
 
+		# get mylinks2 options from db
+		$options = get_option('mylinks2_plugin_options');
+
 	if(count($sqlres) >= 1){
 
 		$res = '';
@@ -166,7 +180,7 @@ function getMyLinksByCategoryCallback($matches){
 			);
 
 			$REPLACE_WITH = array(
-				'<script type="text/javascript" language="javascript" src="http://images.shrinktheweb.com/xino.php?stwembed=2&stwaccesskeyid='.get_option('my_links_data').'&stwsize=xlg&stwurl='.urlencode($link->link_url).'"></script>',
+				'<script type="text/javascript" language="javascript" src="http://images.shrinktheweb.com/xino.php?stwembed=2&stwaccesskeyid='.$options['api_key'].'&stwsize='.$options['img_size'].'&stwurl='.urlencode($link->link_url).'"></script>',
 				$link->link_name,
 				$link->link_description,
 				$link->link_url
@@ -196,7 +210,9 @@ function getMyLinksThumb($content) {
 }
 
 function getMyLinksThumbCallBack($content){
-	return '<script type="text/javascript" language="javascript" src="http://images.shrinktheweb.com/xino.php?stwembed=2&stwaccesskeyid='.get_option('my_links_data').'&stwsize=xlg&stwurl='.urlencode($content[1]).'"></script>';
+		# get mylinks2 options from db
+		$options = get_option('mylinks2_plugin_options');
+	return '<script type="text/javascript" language="javascript" src="http://images.shrinktheweb.com/xino.php?stwembed=2&stwaccesskeyid='.$options['api_key'].'&stwsize='.$options['img_size'].'&stwurl='.urlencode($content[1]).'"></script>';
 }
 
 

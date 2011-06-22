@@ -16,6 +16,8 @@ Only 1-2 Minutes and the thumbnails snapshots are generated. The initial generat
 
 == Installation ==
 
+Note - if you are upgrading from 3.3 please make a note of your API key - it will not be copied to this new release!
+
 1. Upload the mylinks.zip file using the plugin manager. 
 2. Activate the plugin and add your www.shrinkthweb.com API key in the My Links option under Settings. Then add the shortcode to your page/posts as follows.
 3. Example: Use `[mylinks]` in your page or post to display all your links
@@ -35,7 +37,7 @@ Normally, new website thumbnails will be generated in 1-5 minutes by www.shrinkt
 
 = What size do the thumbnails have? =
 
-width: 320 and height: 240
+You can choose from 6 sizes from 75x56 to 320x240
 
 = How can i sort the links? =
 
@@ -43,7 +45,8 @@ The links are sorted by title only. So if you start the link title with "1. link
 
 = How can i change the layout? =
 
-Just change the templates in the `templates` subdirectory of the mylinks plugin. `all_links.html` is the template for all links and `one_category.html` is the template for displaying just one category.
+Two preset layouts are provided.
+You can also change the templates in the `templates` subdirectory of the mylinks plugin. `all_links.html` is the template for all links and `one_category.html` is the template for displaying just one category.
 
 == Screenshots ==
 
@@ -52,8 +55,14 @@ Just change the templates in the `templates` subdirectory of the mylinks plugin.
 
 == Changelog ==
 
-= 1.0 =
-* First release
+= 3.4 =
+* Fixed function name clash
+* Added choice of sizes
+* Added additonal layout choice
+* Rewrote options page (unfortunately this meant existing API keys need to be re-entered.
+
+= 3.3 =
+* First release by 2020Media
 
 
 == Upgrade Notice ==
