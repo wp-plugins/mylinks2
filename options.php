@@ -1,8 +1,5 @@
 <?php
 /*
-Plugin Name: MyLinks2
-License: GPLv2 or later
-Contributors: 2020media,endemedia,workshopshed
 Donate link: http://www.2020media.com/wordpress
 New version (June 2011) of options page using new API
 ref: http://ottopress.com/2009/wordpress-settings-api-tutorial/

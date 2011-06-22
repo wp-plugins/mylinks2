@@ -65,11 +65,6 @@ You can also change the templates in the `templates` subdirectory of the mylinks
 * First release by 2020Media
 
 
-== Upgrade Notice ==
-
-= 1.0 =
-No upgrades available at present - please let us have your feedback.
-
 
 == CHANGE LAYOUT ==
 
