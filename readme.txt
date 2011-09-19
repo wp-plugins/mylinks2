@@ -54,6 +54,8 @@ You can also change the templates in the `templates` subdirectory of the mylinks
 
 
 == Changelog ==
+= 3.5 = 
+* recoded image getting function after API changes at ShrinktheWeb
 
 = 3.4 =
 * Fixed function name clash
@@ -63,7 +65,6 @@ You can also change the templates in the `templates` subdirectory of the mylinks
 
 = 3.3 =
 * First release by 2020Media
-
 
 
 == CHANGE LAYOUT ==
