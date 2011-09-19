@@ -4,7 +4,7 @@
 Plugin Name: MyLinks2
 Plugin URI: http://www.2020media.com/mylinks
 Description: Displays image thumbnails of blogroll links on a Page or Post. Insert `[mylinks]` to a Page or Post and it will display all your blogroll links there - with live snapshots of every page. Example 1: Use `[mylinks]` in your page or post to display all your links. Example 2: Use `[mylinks=slugname]` to display just the links of the category `slugname` in your page or post. Example 3: Use `[thumb]http://www.your-homepage.com[/thumb]` to display a thumbnail of the website `http://www.your-homepage.com` in your page or post. This plugin uses the www.shrinktheweb.com thumbnail API. Sign up (free) and obtain an API key. Enter it in the MyLinks2 section under Settings.
-Version: 3.4
+Version: 3.5
 Author: 2020Media.com based on mylinks by Sascha Ende
 Author URI: http://www.2020media.com/
 Min WP Version: 2.3
@@ -105,7 +105,7 @@ else {
 			);
 
 			$REPLACE_WITH = array(
-				'<script language="javascript" type="text/javascript" src="http://images.shrinktheweb.com/xino.php?stwembed=2&stwaccesskeyid='.$options['api_key'].'&stwsize='.$options['img_size'].'&stwurl='.urlencode($link->link_url).'"></script>
+		                 '<script type="text/javascript"> stw_pagepix("'.urlencode($link->link_url).'", "'.$options['api_key'].'", "'.$options['img_size'].'"); </script>',
 				',
 				$link->link_name,
 				$link->link_description,
@@ -180,7 +180,7 @@ function getMyLinksByCategoryCallback($matches){
 			);
 
 			$REPLACE_WITH = array(
-				'<script type="text/javascript" language="javascript" src="http://images.shrinktheweb.com/xino.php?stwembed=2&stwaccesskeyid='.$options['api_key'].'&stwsize='.$options['img_size'].'&stwurl='.urlencode($link->link_url).'"></script>',
+                                 '<script type="text/javascript"> stw_pagepix("'.urlencode($link->link_url).'", "'.$options['api_key'].'", "'.$options['img_size'].'"); </script>', 
 				$link->link_name,
 				$link->link_description,
 				$link->link_url
