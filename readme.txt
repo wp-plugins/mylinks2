@@ -54,6 +54,10 @@ You can also change the templates in the `templates` subdirectory of the mylinks
 
 
 == Changelog ==
+
+= 3.6 =
+* fixed errors introduced in 3.5
+
 = 3.5 = 
 * recoded image getting function after API changes at ShrinktheWeb
 
