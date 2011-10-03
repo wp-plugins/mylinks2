@@ -107,7 +107,7 @@ else {
 			);
 
 			$REPLACE_WITH = array(
-		         '<script type="text/javascript"> stw_pagepix("'.urlencode($link->link_url).'", "'.$options['api_key'].'", "'.$options['img_size'].'"); </script>',
+		         '<script type="text/javascript"> stw_pagepix("'.($link->link_url).'", "'.$options['api_key'].'", "'.$options['img_size'].'"); </script>',
 				$link->link_name,
 				$link->link_description,
 				$link->link_url
@@ -181,7 +181,7 @@ function getMyLinksByCategoryCallback($matches){
 			);
 
 			$REPLACE_WITH = array(
-                                '<script type="text/javascript"> stw_pagepix("'.urlencode($link->link_url).'", "'.$options['api_key'].'", "'.$options['img_size'].'"); </script>', 
+                                '<script type="text/javascript"> stw_pagepix("'.($link->link_url).'", "'.$options['api_key'].'", "'.$options['img_size'].'"); </script>', 
 				$link->link_name,
 				$link->link_description,
 				$link->link_url
