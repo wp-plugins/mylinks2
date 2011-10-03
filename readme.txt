@@ -55,6 +55,9 @@ You can also change the templates in the `templates` subdirectory of the mylinks
 
 == Changelog ==
 
+= 3.7 =
+Remove of urlencode of urls as STW Javascript doesn't like them
+
 = 3.6 =
 * fixed errors introduced in 3.5
 
