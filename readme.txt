@@ -1,5 +1,5 @@
 === MyLinks2 ===
-Contributors: 2020media,endemedia,workshopshed
+Contributors: 2020media,workshopshed
 Donate link: http://www.2020media.com/wordpress
 Tags: thumbnail,thumbnails,thumb,screenshot,snapshot,link,links,images,image,directory,blogroll
 Requires at least: 2.3
@@ -12,7 +12,7 @@ MyLinks2 displays dynamically generated thumbnail images from your blogroll on a
 
 Displays blogroll links on a Page or Post with thumbnail images of the linked site. Insert `[mylinks]` to a Page or Post and it will display all your blogroll links there - with live snapshots of every page. 
 
-Only 1-2 Minutes and the thumbnails snapshots are generated. The initial generation takes some time, because the server has to deliver many thumbnails at one time. Once cached (1-2minutes), the thumbnails will appear instantly.
+Thumbnails snapshots are generated from 3rd party services. The initial generation takes up to a minute, because the server has to deliver many thumbnails at one time. Once cached (1-2minutes), the thumbnails will appear instantly.
 
 == Installation ==
 
@@ -29,15 +29,15 @@ Note - if you are upgrading from 3.3 please make a note of your API key - it wil
 
 = Do I need a graphic software? =
 
-No, the thumbnails are generated and hosted by `http://www.shrinktheweb.com`.
+No, the thumbnails are generated and hosted by 3rd party image generation services
 
 = When will the thumbnails be generated? =
 
-Normally, new website thumbnails will be generated in 1-5 minutes by www.shrinktheweb.com... sometimes it takes (maximum) 24 hours. 
+Normally, new website thumbnails will be generated in 1-5 minutes by the API. sometimes it takes (maximum) 24 hours. 
 
 = What size do the thumbnails have? =
 
-You can choose from 6 sizes from 75x56 to 320x240
+You can choose from 6 sizes from 75x56px to 480x380px
 
 = How can i sort the links? =
 
@@ -54,6 +54,9 @@ You can also change the templates in the `templates` subdirectory of the mylinks
 
 
 == Changelog ==
+
+= 4.0 =
+Support added for thumbnail generation service, pagepeeker.com
 
 = 3.7 =
 Remove of urlencode of urls as STW Javascript doesn't like them
@@ -77,4 +80,5 @@ Remove of urlencode of urls as STW Javascript doesn't like them
 == CHANGE LAYOUT ==
 
 Just change the templates in the `templates` subdirectory of the mylinks plugin. `all_links.html` is the template for all links and `one_category.html` is the template for displaying just one category.
+
 

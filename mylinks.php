@@ -3,9 +3,9 @@
 /*
 Plugin Name: MyLinks2
 Plugin URI: http://www.2020media.com/mylinks
-Description: Displays image thumbnails of blogroll links on a Page or Post. Insert `[mylinks]` to a Page or Post and it will display all your blogroll links there - with live snapshots of every page. Example 1: Use `[mylinks]` in your page or post to display all your links. Example 2: Use `[mylinks=slugname]` to display just the links of the category `slugname` in your page or post. Example 3: Use `[thumb]http://www.your-homepage.com[/thumb]` to display a thumbnail of the website `http://www.your-homepage.com` in your page or post. This plugin uses the www.shrinktheweb.com thumbnail API. Sign up (free) and obtain an API key. Enter it in the MyLinks2 section under Settings.
-Version: 3.7
-Author: 2020Media.com based on mylinks by Sascha Ende
+Description: Displays image thumbnails of blogroll links on a Page or Post. Insert `[mylinks]` to a Page or Post and it will display all your blogroll links there - with live snapshots of every page. Example 1: Use `[mylinks]` in your page or post to display all your links. Example 2: Use `[mylinks=slugname]` to display just the links of the category `slugname` in your page or post. Example 3: Use `[thumb]http://www.your-homepage.com[/thumb]` to display a thumbnail of the website `http://www.your-homepage.com` in your page or post. This plugin offers a choice of thumbnail API. Some APIs require a (free for low use) an API key. Enter it in the MyLinks2 section under Settings.
+Version: 4.0
+Author: 2020Media.com
 Author URI: http://www.2020media.com/
 Min WP Version: 2.3
 Tags: thumbnail,thumbnails,thumb,screenshot,snapshot,link,links,images,image,directory,blogroll
@@ -13,7 +13,7 @@ Requires at least: 2.3
 Tested up to: 3.1
 Stable tag: trunk
 License: GPLv2 or later
-Contributors: 2020media,endemedia,workshopshed
+Contributors: 2020media,workshopshed
 Donate link: http://www.2020media.com/wordpress
 */
 
@@ -93,6 +93,9 @@ else {
 		# Parse now the results...
 		foreach($sqlres as $link){
 
+			switch ($options['api_service']) {
+				case STW:
+
 			# Category?
 			if($link->categoryname != $last_term){
 				$res .= str_replace('{category}',$link->categoryname,$categoryparts[1]);
@@ -114,6 +117,54 @@ else {
 			);
 
 			$res .= str_replace($REPLACE,$REPLACE_WITH,$tplparts[1]);
+
+				break;
+				case PP:
+					switch ($options['img_size']) {
+						case mcr:
+							$options['img_size']="t";
+							break;
+						case tny:
+							$options['img_size']="t";
+							break;
+						case vsm:
+							$options['img_size']="s";
+							break;
+						case sm:
+							$options['img_size']="m";
+							break;
+						case lg:
+							$options['img_size']="l";
+							break;
+						case xlg:
+							$options['img_size']="x";
+							break;
+						}
+
+			# Category?
+			if($link->categoryname != $last_term){
+				$res .= str_replace('{category}',$link->categoryname,$categoryparts[1]);
+				$last_term = $link->categoryname;
+			}
+
+			$REPLACE = array(
+				'{image}',
+				'{link_name}',
+				'{link_description}',
+				'{link_url}'
+			);
+
+			$REPLACE_WITH = array(
+                '<img src=http://pagepeeker.com/thumbs.php?size='.($options['img_size']).'&url='.($link->link_url).' border=0>',
+				$link->link_name,
+				$link->link_description,
+				$link->link_url
+			);
+
+			$res .= str_replace($REPLACE,$REPLACE_WITH,$tplparts[1]);
+
+			break;
+			}
 
 		}
 
@@ -165,13 +216,22 @@ function getMyLinksByCategoryCallback($matches){
 		$res = '';
 
 		# Load Template
+		if ($options['thumb_layout']=="left"){
 		$tpl = file_get_contents(dirname(__FILE__).'/templates/one_category.html');
+}
+else {
+		$tpl = file_get_contents(dirname(__FILE__).'/templates/one_category_2.html');
+		};
+
 
 		# Get Link Part from Template
 		preg_match("/\<\!\-\-link\:start\-\-\>(.*?)\<\!\-\-link\:stop\-\-\>/sim",$tpl,$tplparts);
 
 		# Parse now the results...
 		foreach($sqlres as $link){
+
+		switch ($options['api_service']) {
+			case STW:
 
 			$REPLACE = array(
 				'{image}',
@@ -181,13 +241,53 @@ function getMyLinksByCategoryCallback($matches){
 			);
 
 			$REPLACE_WITH = array(
-                                '<script type="text/javascript"> stw_pagepix("'.($link->link_url).'", "'.$options['api_key'].'", "'.$options['img_size'].'"); </script>', 
+                '<script type="text/javascript"> stw_pagepix("'.($link->link_url).'", "'.$options['api_key'].'", "'.$options['img_size'].'"); </script>',
 				$link->link_name,
 				$link->link_description,
 				$link->link_url
 			);
 
 			$res .= str_replace($REPLACE,$REPLACE_WITH,$tplparts[1]);
+
+			break;
+			case PP:
+					switch ($options['img_size']) {
+						case mcr:
+							$options['img_size']="t";
+							break;
+						case tny:
+							$options['img_size']="t";
+							break;
+						case vsm:
+							$options['img_size']="s";
+							break;
+						case sm:
+							$options['img_size']="m";
+							break;
+						case lg:
+							$options['img_size']="l";
+							break;
+						case xlg:
+							$options['img_size']="x";
+							break;
+						}
+			$REPLACE = array(
+				'{image}',
+				'{link_name}',
+				'{link_description}',
+				'{link_url}'
+			);
+
+			$REPLACE_WITH = array(
+                '<img src=http://pagepeeker.com/thumbs.php?size='.($options['img_size']).'&url='.($link->link_url).' border=0>',
+				$link->link_name,
+				$link->link_description,
+				$link->link_url
+			);
+
+			$res .= str_replace($REPLACE,$REPLACE_WITH,$tplparts[1]);
+			break;
+			}
 
 		}
 
@@ -200,9 +300,9 @@ function getMyLinksByCategoryCallback($matches){
 
 }
 
-##############################################################################################################
+########################################################################################
 # Add one Thumb to the content
-##############################################################################################################
+########################################################################################
 
 add_filter('the_content','getMyLinksThumb');
 
@@ -213,9 +313,41 @@ function getMyLinksThumb($content) {
 function getMyLinksThumbCallBack($content){
 		# get mylinks2 options from db
 		$options = get_option('mylinks2_plugin_options');
-	return '<script type="text/javascript" language="javascript" src="http://images.shrinktheweb.com/xino.php?stwembed=2&stwaccesskeyid='.$options['api_key'].'&stwsize='.$options['img_size'].'&stwurl='.urlencode($content[1]).'"></script>';
+		switch ($options['api_service']) {
+			case STW:
+	return '<script type="text/javascript"> stw_pagepix("'.$content[1].'", "'.$options['api_key'].'", "'.$options['img_size'].'"); </script>';
+
+				break;
+
+			case PP:
+				switch ($options['img_size']) {
+					case mcr:
+						$options['img_size']="t";
+						break;
+					case tny:
+						$options['img_size']="t";
+						break;
+					case vsm:
+						$options['img_size']="s";
+						break;
+					case sm:
+						$options['img_size']="m";
+						break;
+					case lg:
+						$options['img_size']="l";
+						break;
+					case xlg:
+						$options['img_size']="x";
+						break;
+					}
+$imgsrc= "<img src=\"http://pagepeeker.com/thumbs.php?size=" .$options['img_size']."&url=" .$content[1]. "\" border=\"0\">";
+				return $imgsrc;
+				break;
+				}
+
+
 }
 
 
-
 ?>
+
