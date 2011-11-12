@@ -55,6 +55,9 @@ You can also change the templates in the `templates` subdirectory of the mylinks
 
 == Changelog ==
 
+= 4.1=
+Fixed 'headers already sent error'
+
 = 4.0 =
 Support added for thumbnail generation service, pagepeeker.com
 
