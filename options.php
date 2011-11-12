@@ -112,8 +112,3 @@ $options['thumb_layout'] = 'error';
 
 return $options;
 }
-
-
-
-
-

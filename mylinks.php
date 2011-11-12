@@ -4,7 +4,7 @@
 Plugin Name: MyLinks2
 Plugin URI: http://www.2020media.com/mylinks
 Description: Displays image thumbnails of blogroll links on a Page or Post. Insert `[mylinks]` to a Page or Post and it will display all your blogroll links there - with live snapshots of every page. Example 1: Use `[mylinks]` in your page or post to display all your links. Example 2: Use `[mylinks=slugname]` to display just the links of the category `slugname` in your page or post. Example 3: Use `[thumb]http://www.your-homepage.com[/thumb]` to display a thumbnail of the website `http://www.your-homepage.com` in your page or post. This plugin offers a choice of thumbnail API. Some APIs require a (free for low use) an API key. Enter it in the MyLinks2 section under Settings.
-Version: 4.0
+Version: 4.1
 Author: 2020Media.com
 Author URI: http://www.2020media.com/
 Min WP Version: 2.3
@@ -347,7 +347,4 @@ $imgsrc= "<img src=\"http://pagepeeker.com/thumbs.php?size=" .$options['img_size
 
 
 }
-
-
 ?>
-
