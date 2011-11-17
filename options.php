@@ -37,7 +37,6 @@ add_settings_field('plugin_api_key', 'ShrinkTheWeb API Key*', 'plugin_setting_ap
 add_settings_field('plugin_img_size', 'Image Size', 'plugin_setting_img_size', 'mylinks2', 'plugin_main');
 add_settings_field('plugin_thumb_layout', 'Page Layout', 'plugin_setting_thumb_layout', 'mylinks2', 'plugin_main');
 add_settings_section('plugin_desc', 'Help', 'plugin_section_text2', 'mylinks2');
-
 }
 
 function plugin_section_text() {
@@ -92,7 +91,6 @@ echo "<select id='plugin_thumb_layout' name='mylinks2_plugin_options[thumb_layou
 
 // validate our options
 function plugin_options_validate($input) {
-$options = get_option('mylinks2_plugin_options');
 $options['api_key'] = trim($input['api_key']);
 if(!preg_match('/^[a-z0-9]{6,}$/i', $options['api_key'])) {
 $options['api_key'] = 'error';
