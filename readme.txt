@@ -55,10 +55,13 @@ You can also change the templates in the `templates` subdirectory of the mylinks
 
 == Changelog ==
 
+= 4.3 =
+Fixed image size problem in category display (thanks gluggy)
+
 = 4.2 =
 Updated documentation and added default behavior so works without any configuration
 
-= 4.1=
+= 4.1 =
 Fixed 'headers already sent error'
 
 = 4.0 =
