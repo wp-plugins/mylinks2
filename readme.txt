@@ -6,11 +6,11 @@ Requires at least: 2.3
 Tested up to: 3.2
 Stable tag: trunk
 
-MyLinks2 displays dynamically generated thumbnail images from your blogroll on a Page or Post. 
+MyLinks2 displays dynamically generated thumbnail images from your blogroll or link on a Page or Post. 
 
 == Description ==
 
-Displays blogroll links on a Page or Post with thumbnail images of the linked site. Insert `[mylinks]` to a Page or Post and it will display all your blogroll links there - with live snapshots of every page. 
+Displays blogroll links on a Page or Post with thumbnail images of the linked site. Also generates image for a individual link within a page. Insert `[mylinks]` to a Page or Post and it will display all your blogroll links there - with live snapshots of every page. 
 
 Thumbnails snapshots are generated from 3rd party services. The initial generation takes up to a minute, because the server has to deliver many thumbnails at one time. Once cached (1-2minutes), the thumbnails will appear instantly.
 
@@ -19,7 +19,7 @@ Thumbnails snapshots are generated from 3rd party services. The initial generati
 Note - if you are upgrading from 3.3 please make a note of your API key - it will not be copied to this new release!
 
 1. Upload the mylinks.zip file using the plugin manager. 
-2. Activate the plugin and add your www.shrinkthweb.com API key in the My Links option under Settings. Then add the shortcode to your page/posts as follows.
+2. Activate the plugin and go to the Settings page to select the API service, add your API key (if used) and other options. Then add the shortcode to your page/posts as follows.
 3. Example: Use `[mylinks]` in your page or post to display all your links
 4. Example: Use `[mylinks=categoryname]` to display just the links of the category `categoryname` in your page or post
 5. Example: Use `[thumb]http://www.your-homepage.com[/thumb]` to display a thumbnail of the website `http://www.your-homepage.com` in your page or post 
@@ -54,6 +54,12 @@ You can also change the templates in the `templates` subdirectory of the mylinks
 
 
 == Changelog ==
+
+= 4.2 =
+Updated documentation and added default behavior so works without any configuration
+
+= 4.1=
+Fixed 'headers already sent error'
 
 = 4.0 =
 Support added for thumbnail generation service, pagepeeker.com
