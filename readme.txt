@@ -55,6 +55,9 @@ You can also change the templates in the `templates` subdirectory of the mylinks
 
 == Changelog ==
 
+= 4.5 =
+Reverted to code in 4.3 after Shrinktheweb took our problem javascript
+
 = 4.4 =
 Temporary fix for ShrinktheWeb javascript bug affecting Admin menu
 
