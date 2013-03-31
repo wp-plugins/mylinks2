@@ -4,13 +4,13 @@
 Plugin Name: MyLinks2
 Plugin URI: http://www.2020media.com/mylinks
 Description: Displays image thumbnails of blogroll links on a Page or Post. Insert `[mylinks]` to a Page or Post and it will display all your blogroll links there - with live snapshots of every page. Example 1: Use `[mylinks]` in your page or post to display all your links. Example 2: Use `[mylinks=slugname]` to display just the links of the category `slugname` in your page or post. Example 3: Use `[thumb]http://www.your-homepage.com[/thumb]` to display a thumbnail of the website `http://www.your-homepage.com` in your page or post. This plugin offers a choice of thumbnail API. Some APIs require a (free for low use) an API key. Enter it in the MyLinks2 section under Settings.
-Version: 4.5
 Author: 2020Media.com
+Version: 4.6
 Author URI: http://www.2020media.com/
 Min WP Version: 2.3
 Tags: thumbnail,thumbnails,thumb,screenshot,snapshot,link,links,images,image,directory,blogroll
 Requires at least: 2.3
-Tested up to: 3.3
+Tested up to: 3.5
 Stable tag: trunk
 License: GPLv2 or later
 Contributors: 2020media,workshopshed
@@ -21,8 +21,8 @@ Donate link: http://www.2020media.com/wordpress
 include_once dirname( __FILE__ ) . '/options.php';
 
 
-
-wp_enqueue_script('shrinktheweb', 'http://www.shrinktheweb.com/scripts/pagepix.js');
+// not needed since 2012
+// wp_enqueue_script('shrinktheweb', 'http://www.shrinktheweb.com/scripts/pagepix.js');
 
 
 add_filter('the_content','getMyLinks');
@@ -120,7 +120,8 @@ else {
 			);
 
 			$REPLACE_WITH = array(
-		         '<script type="text/javascript"> stw_pagepix("'.($link->link_url).'", "'.$options['api_key'].'", "'.$options['img_size'].'"); </script>',
+'<img src=http://images.shrinktheweb.com/xino.php?stwembed=1&stwaccesskeyid='.($options['api_key']).'&stwsize='.($options['img_size']).'&stwurl='.($link->link_url).'>',
+
 				$link->link_name,
 				$link->link_description,
 				$link->link_url
@@ -300,7 +301,7 @@ else {
 			);
 
 			$REPLACE_WITH = array(
-                '<script type="text/javascript"> stw_pagepix("'.($link->link_url).'", "'.$options['api_key'].'", "'.$options['img_size'].'"); </script>',
+'<img src=http://images.shrinktheweb.com/xino.php?stwembed=1&stwaccesskeyid='.($options['api_key']).'&stwsize='.($options['img_size']).'&stwurl='.($link->link_url).'>',
 				$link->link_name,
 				$link->link_description,
 				$link->link_url
@@ -412,8 +413,7 @@ function getMyLinksThumbCallBack($content){
 		$options = get_option('mylinks2_plugin_options');
 		switch ($options['api_service']) {
 			case STW:
-	return '<script type="text/javascript"> stw_pagepix("'.$content[1].'", "'.$options['api_key'].'", "'.$options['img_size'].'"); </script>';
-
+	return '<img src=http://images.shrinktheweb.com/xino.php?stwembed=1&stwaccesskeyid='.($options['api_key']).'&stwsize='.($options['img_size']).'&stwurl='.($link->link_url).'>';
 				break;
 
 			case PP:
@@ -475,3 +475,4 @@ $imgsrc= "<img src=\"http://pagepeeker.com/thumbs.php?size=" .$options['img_size
 
 }
 ?>
+
