@@ -55,6 +55,9 @@ You can also change the templates in the `templates` subdirectory of the mylinks
 
 == Changelog ==
 
+= 4.7 =
+bug fix "headers already sent"
+
 = 4.6 =
 Updated for compatibility with Shrinktheweb
 
