@@ -3,7 +3,7 @@ Contributors: 2020media,workshopshed
 Donate link: http://www.2020media.com/wordpress
 Tags: thumbnail,thumbnails,thumb,screenshot,snapshot,link,links,images,image,directory,blogroll
 Requires at least: 2.3
-Tested up to: 3.5
+Tested up to: 4.2
 Stable tag: trunk
 
 MyLinks2 displays dynamically generated thumbnail images from your blogroll or link on a Page or Post. 
@@ -54,6 +54,9 @@ You can also change the templates in the `templates` subdirectory of the mylinks
 
 
 == Changelog ==
+
+= 4.8 =
+updated for WordPress 4
 
 = 4.7 =
 bug fix "headers already sent"
